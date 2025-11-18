@@ -5,7 +5,7 @@ snippets to help you get started with building applications using LangChain.
 
 ## Getting Started
 
-To get started, clone the repository and install the required dependencies.
+To get started, install python 3.12 and the required dependencies:
 
 ```bash
 pip install -r requirements.txt
