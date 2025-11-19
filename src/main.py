@@ -1,17 +1,18 @@
+import os
+
 import streamlit as st
 from langchain.agents import create_agent
-from langchain_core.tools import tool
 from langchain_ollama import ChatOllama
 
+from tools.hardcoded import get_weather as get_weather_hardcoded
+from tools.weatherapi_com import get_weather as get_weather_api
 
-@tool(
-    "get_weather",
-    description="Get the weather for a given city")
-def get_weather(city: str) -> str:
-    return f"It's always sunny in {city}!"
+tools = []
 
-
-tools = [get_weather]
+if os.environ.get("WEATHER_API_KEY") is not None:
+    tools.append(get_weather_api)
+else:
+    tools.append(get_weather_hardcoded)
 
 llm = ChatOllama(
     model="gpt-oss:20b",
